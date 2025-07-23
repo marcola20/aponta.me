@@ -10,7 +10,7 @@ namespace ApontaMe.Models
     {
         public int ApontamentoID { get; set; }
         public int UsuarioID { get; set; }
-        public Usuario Usuario { get; set; } = new Usuario();
+        public Usuario? Usuario { get; set; } = new Usuario();
         public int Ano { get; set; }
         public int Mes { get; set; }
 

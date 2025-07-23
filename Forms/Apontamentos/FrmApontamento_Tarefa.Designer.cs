@@ -116,10 +116,10 @@
             spnFim.Location = new Point(136, 28);
             spnFim.Name = "spnFim";
             spnFim.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            spnFim.Size = new Size(115, 20);
             spnFim.Properties.Mask.EditMask = "n0";
-            spnFim.Properties.MaxValue = 31;
-            spnFim.Properties.MinValue = 1;
+            spnFim.Properties.MaxValue = new decimal(new int[] { 31, 0, 0, 0 });
+            spnFim.Properties.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
+            spnFim.Size = new Size(115, 20);
             spnFim.StyleController = layoutControl1;
             spnFim.TabIndex = 3;
             // 
@@ -129,12 +129,12 @@
             spnInicio.Location = new Point(12, 28);
             spnInicio.Name = "spnInicio";
             spnInicio.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            spnInicio.Properties.Mask.EditMask = "n0";
+            spnInicio.Properties.MaxValue = new decimal(new int[] { 31, 0, 0, 0 });
+            spnInicio.Properties.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
             spnInicio.Size = new Size(110, 20);
             spnInicio.StyleController = layoutControl1;
             spnInicio.TabIndex = 0;
-            spnInicio.Properties.MaxValue = 31;
-            spnInicio.Properties.MinValue = 1;
-            spnInicio.Properties.Mask.EditMask = "n0";
             // 
             // Root
             // 
@@ -230,10 +230,13 @@
             ClientSize = new Size(263, 178);
             Controls.Add(layoutControl1);
             IconOptions.ShowIcon = false;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmApontamento_Tarefa";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Tarefas";
+            Load += FrmApontamento_Tarefa_Load;
             ((System.ComponentModel.ISupportInitialize)layoutControl1).EndInit();
             layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtDescricao.Properties).EndInit();

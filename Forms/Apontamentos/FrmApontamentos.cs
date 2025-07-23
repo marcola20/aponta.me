@@ -58,24 +58,10 @@ namespace ApontaMe.Forms.Apontamentos
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            using var frm = new FrmApontamento_Editar(_usuarioService);
+            using var frm = new FrmApontamento_Editar(_usuarioService, _apontamentoService);
 
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    _apontamentoService.CreateApontamento(frm.ApontamentoEditado);
-
-                    MessageBox.Show("Apontamento cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    if (!workerApontamentos.IsBusy)
-                        workerApontamentos.RunWorkerAsync();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao cadastrar apontamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            if (frm.ShowDialog() == DialogResult.OK && !workerApontamentos.IsBusy)
+                workerApontamentos.RunWorkerAsync();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -86,27 +72,13 @@ namespace ApontaMe.Forms.Apontamentos
                 return;
             }
 
-            using var frm = new FrmApontamento_Editar(_usuarioService, apontamentoSelecionado)
+            using var frm = new FrmApontamento_Editar(_usuarioService, _apontamentoService, apontamentoSelecionado)
             {
                 Modo_Editar = true
             };
 
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    _apontamentoService.UpdateApontamento(frm.ApontamentoEditado);
-
-                    MessageBox.Show("Apontamento atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    if (!workerApontamentos.IsBusy)
-                        workerApontamentos.RunWorkerAsync();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao atualizar apontamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            if (frm.ShowDialog() == DialogResult.OK && !workerApontamentos.IsBusy)
+                workerApontamentos.RunWorkerAsync();
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)

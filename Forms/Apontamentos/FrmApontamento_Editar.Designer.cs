@@ -222,6 +222,7 @@
             grdViewTarefas.OptionsView.ShowGroupPanel = false;
             grdViewTarefas.OptionsView.ShowIndicator = false;
             grdViewTarefas.CustomColumnDisplayText += grdViewTarefas_CustomColumnDisplayText;
+            grdViewTarefas.DoubleClick += btnEditar_Click;
             // 
             // colIntervalo_Entrada
             // 

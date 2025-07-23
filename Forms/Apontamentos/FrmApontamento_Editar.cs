@@ -26,12 +26,16 @@ namespace ApontaMe.Forms.Apontamentos
         private int _apontamentoTempID = -1;
 
         private readonly IUsuarioService _usuarioService;
+        private readonly IApontamentoService _apontamentoService;
 
-        public FrmApontamento_Editar(IUsuarioService usuarioService, Apontamento apontamentoExistente = null)
+        public FrmApontamento_Editar(IUsuarioService usuarioService,
+                                     IApontamentoService apontamentoService,
+                                     Apontamento? apontamentoExistente = null)
         {
             InitializeComponent();
 
-            _usuarioService = usuarioService;
+            _usuarioService = usuarioService ?? throw new ArgumentNullException(nameof(usuarioService));
+            _apontamentoService = apontamentoService ?? throw new ArgumentNullException(nameof(apontamentoService));
             ApontamentoEditado = apontamentoExistente ?? new Apontamento
             {
                 ApontamentoID = _apontamentoTempID--,
@@ -77,26 +81,38 @@ namespace ApontaMe.Forms.Apontamentos
             grdTarefas.DataSource = TarefasDataSource;
         }
 
-        private void btnSalvar_Click(object sender, EventArgs e)
+        private bool Validar()
         {
             if (cboUsuario.EditValue == null)
             {
                 MessageBox.Show("Selecione um usuário.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return false;
             }
 
             if (cboMes.SelectedIndex < 0)
             {
                 MessageBox.Show("Selecione um mês.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return false;
             }
 
             if (cboAno.SelectedIndex < 0)
             {
                 MessageBox.Show("Selecione um ano.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return false;
             }
 
+            return true;
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            btnSalvar.Enabled = false;
+
+            if (!Validar())
+            {
+                btnSalvar.Enabled = true;
+                return;
+            }
 
             if (!Modo_Editar && ApontamentoEditado.ApontamentoID <= 0)
                 ApontamentoEditado.ApontamentoID = 0;
@@ -119,8 +135,23 @@ namespace ApontaMe.Forms.Apontamentos
 
             ApontamentoEditado.Tarefas = TarefasDataSource.ToList();
 
-            DialogResult = DialogResult.OK;
-            Close();
+            try
+            {
+                if (Modo_Editar)
+                    _apontamentoService.UpdateApontamento(ApontamentoEditado);
+                else
+                    _apontamentoService.CreateApontamento(ApontamentoEditado);
+
+                MessageBox.Show("Apontamento salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao salvar apontamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnSalvar.Enabled = true;
+            }
         }
 
         private void cboMes_SelectedIndexChanged(object sender, EventArgs e)

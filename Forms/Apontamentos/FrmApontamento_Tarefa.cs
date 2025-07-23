@@ -36,5 +36,11 @@ namespace ApontaMe.Forms.Apontamentos
             DialogResult = DialogResult.Cancel;
             Close();
         }
+        private void FrmApontamento_Tarefa_Load(object sender, EventArgs e)
+        {
+            spnInicio.Value = TarefaEditada.Inicio;
+            spnFim.Value = TarefaEditada.Fim;
+            txtDescricao.Text = TarefaEditada.Descricao ?? string.Empty;
+        }
     }
 }
