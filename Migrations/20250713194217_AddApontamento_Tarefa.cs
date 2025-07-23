@@ -76,7 +76,7 @@ namespace ApontaMe.Migrations
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
-                name: "ApontamentoTarefaS",
+                name: "ApontamentoTarefas",
                 columns: table => new
                 {
                     ApontamentoTarefaID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -88,9 +88,9 @@ namespace ApontaMe.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApontamentoTarefaS", x => x.ApontamentoTarefaID);
+                    table.PrimaryKey("PK_ApontamentoTarefas", x => x.ApontamentoTarefaID);
                     table.ForeignKey(
-                        name: "FK_ApontamentoTarefaS_Apontamentos_ApontamentoID",
+                        name: "FK_ApontamentoTarefas_Apontamentos_ApontamentoID",
                         column: x => x.ApontamentoID,
                         principalTable: "Apontamentos",
                         principalColumn: "ApontamentoID",
@@ -103,8 +103,8 @@ namespace ApontaMe.Migrations
                 column: "UsuarioID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ApontamentoTarefaS_ApontamentoID",
-                table: "ApontamentoTarefaS",
+                name: "IX_ApontamentoTarefas_ApontamentoID",
+                table: "ApontamentoTarefas",
                 column: "ApontamentoID");
 
             migrationBuilder.AddForeignKey(
@@ -124,7 +124,7 @@ namespace ApontaMe.Migrations
                 table: "Apontamentos");
 
             migrationBuilder.DropTable(
-                name: "ApontamentoTarefaS");
+                name: "ApontamentoTarefas");
 
             migrationBuilder.DropIndex(
                 name: "IX_Apontamentos_UsuarioID",

@@ -75,7 +75,7 @@ namespace ApontaMe.Migrations
 
                     b.HasIndex("ApontamentoID");
 
-                    b.ToTable("ApontamentoTarefaS");
+                    b.ToTable("ApontamentoTarefas");
                 });
 
             modelBuilder.Entity("ApontaMe.Models.Usuario", b =>
